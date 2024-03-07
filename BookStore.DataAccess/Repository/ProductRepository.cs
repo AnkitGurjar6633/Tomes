@@ -22,7 +22,7 @@ namespace BookStore.DataAccess.Repository
         {
             //_db.products.Update(obj);
             //Explicit updating is good practicing in case a element becomes null
-            var objFromDb = _db.products.FirstOrDefault(p => p.Id == obj.Id);  
+            var objFromDb = _db.Products.FirstOrDefault(p => p.Id == obj.Id);  
             if (objFromDb != null)
             {
                 objFromDb.Title = obj.Title;

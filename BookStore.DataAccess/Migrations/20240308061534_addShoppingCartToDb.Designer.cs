@@ -4,6 +4,7 @@ using BookStore.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240308061534_addShoppingCartToDb")]
+    partial class addShoppingCartToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,6 +279,9 @@ namespace BookStore.DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PoductId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")

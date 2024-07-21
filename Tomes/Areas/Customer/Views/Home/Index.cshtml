@@ -1,44 +1,71 @@
-﻿@model IEnumerable<Product>
+﻿@model HomeVM
 
 <div class="container pb-5">
-    <div class="row pb-3">
-        @foreach(var product in Model)
+        <div class="container-fluid bg-body-tertiary rounded py-2">
+            <form class="d-flex flex-column" method="post">
+                <div class="p-1">
+                    <input asp-for="@Model.searchString" class="form-control me-2" type="search" placeholder="Search">
+                </div>
+                <div class="d-flex p-1 justify-content-between">
+                    <div class="d-flex justify-content-end align-items-center gap-2">
+                    <label class="ms-2 form-text text">Category:</label>
+                    <select asp-for="@Model.categoryId" asp-items="@Model.CategoryList" class="form-select" style="cursor:pointer">
+                        </select>
+                    </div>
+                    <div >
+                        <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i>  Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <div class="container-fluid row pb-3 bg-body-secondary mx-0 mt-3 rounded " style="min-height:500px" >
+        @if (Model.ProductList != null && Model.ProductList.Any())
         {
-            <div class="col-sm-6 col-lg-3">
-                <div class="row p-2">
-                    <div class="col-12 p-1">
-                        <div class="card border-0 p-3 shadow border-top border-5 rounded">
-                            <img src="@product.ImageUrl" class="card-img-top rounded"/>
-                            <div class="card-body pb-0">
-                                <div class="pl-1">
-                                    <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
-                                    <p class="card-title text-warning text-center">by <b>@product.Author</b></p>
+            @foreach (var product in Model.ProductList)
+            {
+                <div class="col-sm-6 col-lg-3">
+                    <div class="row p-2">
+                        <div class="col-12 p-1">
+                            <div class="card border-0 p-3 shadow border-top border-5 rounded">
+                                <img src="@product.ImageUrl" class="card-img-top rounded"/>
+                                <div class="card-body pb-0">
+                                    <div class="pl-1">
+                                        <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
+                                        <p class="card-title text-warning text-center">by <b>@product.Author</b></p>
+                                    </div>
+                                    <div class="pl-1">
+                                        <p class="text-dark text-opacity-75 text-center mb-0">
+                                            List Price:
+                                            <span class="text-decoration-line-through">
+                                               &#8377 @product.ListPrice.ToString();
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="pl-1">
+                                        <p class="text-dark text-opacity-75 text-center">
+                                            as low as:
+                                            <span>
+                                               &#x20B9 @product.Price100.ToString();
+                                            </span>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="pl-1">
-                                    <p class="text-dark text-opacity-75 text-center mb-0">
-                                        List Price:
-                                        <span class="text-decoration-line-through">
-                                            @product.ListPrice.ToString("c");
-                                        </span>
-                                    </p>
+                                <div>
+                                    <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary bg-gradient border-0 form-control">
+                                        Details
+                                    </a>
                                 </div>
-                                <div class="pl-1">
-                                    <p class="text-dark text-opacity-75 text-center">
-                                        as low as:
-                                        <span>
-                                            @product.Price100.ToString("c");
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div>
-                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary bg-gradient border-0 form-control">
-                                    Details
-                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+            }
+
+        }
+        else
+        {
+            <div class="d-flex justify-content-center align-items-center">
+                <div class=""> No Results Found </div>
             </div>
         }
     </div>

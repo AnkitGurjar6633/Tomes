@@ -51,8 +51,8 @@ namespace Tomes.DataAccess.DbInitializer
 
                 _userManager.CreateAsync(new ApplicationUser
                 {
-                    UserName = "Logan",
-                    Email = "admin@gmail.com",
+                    UserName = "logan@gmail.com",
+                    Email = "logan@gmail.com",
                     Name = "Logan BigHat",
                     PhoneNumber = "1234567890",
                     StreetAddress = "test 1",
@@ -61,7 +61,7 @@ namespace Tomes.DataAccess.DbInitializer
                     City = "Duke's Archive"
                 }, "Ankit@6633").GetAwaiter().GetResult();
 
-                ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Email == "admin@gmail.com");
+                ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Email == "logan@gmail.com");
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
 
 

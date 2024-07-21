@@ -67,7 +67,7 @@ namespace Tomes.Areas.Admin.Controllers
                     PriceData = new SessionLineItemPriceDataOptions
                     {
                         UnitAmount = (long)(item.Price * 100),                          //$50.34 => 5034 
-                        Currency = "usd",
+                        Currency = "inr",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
                             Name = item.Product.Title

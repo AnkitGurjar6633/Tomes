@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
+using Tomes.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.RegularExpressions;
 
 namespace Tomes.Areas.Customer.Controllers
 {
@@ -23,8 +26,58 @@ namespace Tomes.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
-            return View(productList);
+            List<Category> categories = _unitOfWork.Category.GetAll().ToList();
+            Category all = new Category()
+            {
+                Name = "All",
+                Id = 0,
+            };
+            categories.Insert(0,all);
+
+            HomeVM homeVM = new HomeVM()
+            {
+                ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category"),
+                CategoryList = categories.Select(cl => new SelectListItem
+                {
+                    Text = cl.Name,
+                    Value = cl.Id.ToString(),
+                    Selected = cl.Id == 0 ? true : false
+
+                })
+            };
+            return View(homeVM);
+        }
+
+        [HttpPost]
+        public IActionResult Index(HomeVM homeVM)
+        {
+            List<Category> categories = _unitOfWork.Category.GetAll().ToList();
+            Category all = new Category()
+            {
+                Name = "All",
+                Id = 0,
+            };
+            categories.Insert(0, all);
+
+            try
+            {
+                Regex regex = new Regex(homeVM.searchString == null ? "" : homeVM.searchString, RegexOptions.IgnoreCase);
+
+                homeVM.ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(p => (regex.IsMatch(p.Title) || regex.IsMatch(p.Author) || regex.IsMatch(p.Description) ) && (homeVM.categoryId == "0" || p.CategoryId.ToString() == homeVM.categoryId));
+            }
+            catch(Exception ex)
+            {
+                homeVM.ProductList = null;
+            }
+            homeVM.CategoryList = categories.Select(cl => new SelectListItem
+            {
+                Text = cl.Name,
+                Value = cl.Id.ToString(),
+                Selected = homeVM.categoryId == cl.Id.ToString() ? true : false
+            });
+            
+
+            return View(homeVM);
         }
 
         public IActionResult Details(int productId)

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -28,10 +28,6 @@
     <ProjectReference Include="..\Tomes.DataAccess\Tomes.DataAccess.csproj" />
     <ProjectReference Include="..\Tomes.Models\Tomes.Models.csproj" />
     <ProjectReference Include="..\Tomes.Utility\Tomes.Utility.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 
 </Project>

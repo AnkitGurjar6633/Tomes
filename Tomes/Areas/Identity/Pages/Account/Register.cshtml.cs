@@ -119,7 +119,12 @@ namespace Tomes.Areas.Identity.Pages.Account
             public string? City { get; set; }
             public string? State { get; set; }
             public string? PostalCode { get; set; }
-            public string? PhoneNumber { get; set; }
+
+            [Required]
+            [DataType(DataType.PhoneNumber)]
+            [Phone]
+            [RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid phone number.")]
+            public string PhoneNumber { get; set; }
             public int? CompanyId {  get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> CompanyList { get; set; }

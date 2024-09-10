@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Tomes.Areas.Customer.Controllers
 {
@@ -66,8 +68,14 @@ namespace Tomes.Areas.Customer.Controllers
             ShoppingCartVM.OrderHeader.State = ShoppingCartVM.OrderHeader.ApplicationUser.State;
             ShoppingCartVM.OrderHeader.PostalCode = ShoppingCartVM.OrderHeader.ApplicationUser.PostalCode;
 
+            if (ShoppingCartVM.OrderHeader.Name.IsNullOrEmpty() || ShoppingCartVM.OrderHeader.PhoneNumber.IsNullOrEmpty() ||
+                ShoppingCartVM.OrderHeader.StreetAddress.IsNullOrEmpty() || ShoppingCartVM.OrderHeader.City.IsNullOrEmpty() ||
+                ShoppingCartVM.OrderHeader.State.IsNullOrEmpty() || ShoppingCartVM.OrderHeader.PostalCode.IsNullOrEmpty())
+            {
+                ModelState.AddModelError("MissingDetails", "Please complete user details to place a order.");
+            }
 
-            foreach(var cart in ShoppingCartVM.ShoppingCartList)
+            foreach (var cart in ShoppingCartVM.ShoppingCartList)
             {
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);

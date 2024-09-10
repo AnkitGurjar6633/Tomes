@@ -34,7 +34,7 @@
                             <span asp-validation-for="Input.Name" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3 col-md-6">
-                            <input asp-for="Input.PhoneNumber" class="form-control" placeholder="name@example.com" />
+                            <input asp-for="Input.PhoneNumber" type="tel" id="phoneNumber" pattern="\d{10}" class="form-control" placeholder="name@example.com" />
                             <label asp-for="Input.PhoneNumber" class="ms-2 text-muted">Phone Number</label>
                             <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                         </div>
@@ -141,5 +141,17 @@
                 }
             })
         })
+    </script>
+    <script>
+        document.getElementById('phoneNumber').addEventListener('keypress', function (e) {
+            if (e.which < 48 || e.which > 57) {
+                e.preventDefault();
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#phoneNumber').inputmask("9999999999"); // 10-digit number mask
+        });
     </script>
 }

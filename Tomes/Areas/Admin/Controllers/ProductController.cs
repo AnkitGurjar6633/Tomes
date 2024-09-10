@@ -167,7 +167,7 @@ namespace Tomes.Areas.Admin.Controllers
             {
                 System.IO.File.Delete(oldImagePath);
             }
-
+            
             _unitOfWork.Product.Remove(productFromDB);
             _unitOfWork.Save();
 

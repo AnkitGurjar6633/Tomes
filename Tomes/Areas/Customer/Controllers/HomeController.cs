@@ -8,7 +8,6 @@ using System.Security.Claims;
 using Tomes.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.RegularExpressions;
-using Microsoft.ML;
 using Tomes.Services;
 
 namespace Tomes.Areas.Customer.Controllers
@@ -56,7 +55,7 @@ namespace Tomes.Areas.Customer.Controllers
             var allProducts = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             var ratings = _unitOfWork.RatingAndReview.GetAll().ToList();
             var orders = _unitOfWork.OrderDetail.GetAll(includeProperties: "OrderHeader").Where(od => od.OrderHeader.ApplicationUserId == userId).ToList();
-            var visitHistory = _unitOfWork.ApplicationUser.Get(u => u.Id == userId)?.ProductVisitList.Split(',').Select(int.Parse).ToList();
+            var visitHistory = _unitOfWork.ApplicationUser.Get(u => u.Id == userId)?.ProductVisitList?.Split(',').Select(int.Parse).ToList();
 
             IEnumerable<Product> recommendedProducts = null;
 

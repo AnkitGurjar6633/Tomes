@@ -15,6 +15,8 @@ namespace Tomes.DataAccess.Repository.IRepository
         IApplicationUserRepository ApplicationUser { get; }
         IOrderDetailRepository OrderDetail { get; }
         IOrderHeaderRepository OrderHeader { get; }
+        IFavoriteRepository Favorite { get; }
+        IRatingAndReviewRepository RatingAndReview { get; }
         void Save();
     }
 }

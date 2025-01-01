@@ -23,5 +23,7 @@ namespace Tomes.Models
         [ForeignKey("CompanyId")]
         [ValidateNever]
         public Company Company { get; set; }
+
+        public string ProductVisitList { get; set; }
     }
 }

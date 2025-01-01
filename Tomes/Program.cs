@@ -7,6 +7,10 @@ using Tomes.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
 using Tomes.DataAccess.DbInitializer;
+using Microsoft.ML;
+using Tomes.Services;
+using Tomes.Models;
+using Product = Tomes.Models.Product;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +49,19 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender,EmailSender>();
 
+//add recommendation system
+builder.Services.AddSingleton<MLContext>();
+builder.Services.AddScoped<IRecommendationService, RecommendationService>(provider =>
+{
+    var config = provider.GetRequiredService<IConfiguration>();
+
+    return new RecommendationService(
+     FavoriteBaseRating: config.GetValue<float>("RecommendationSettings:FavoriteBaseRating", 5f),
+            OrderBaseRating: config.GetValue<float>("RecommendationSettings:OrderBaseRating", 4f),
+        OrderIncrementScaleFactor: config.GetValue<float>("RecommendationSettings:OrderIncrementScaleFactor", 0.25f),
+          VisitIncrementFactor: config.GetValue<float>("RecommendationSettings:VisitIncrementFactor", 0.2f));
+});
+
 
 var app = builder.Build();
 
@@ -69,6 +86,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
+//TrainAndSaveModel(app.Services);
+
 app.Run();
 
 
@@ -78,5 +97,35 @@ void SeedDatabase()
     {
         var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
         dbInitializer.Initialize();
+    }
+}
+
+void TrainAndSaveModel(IServiceProvider serviceProvider)
+{
+    using (var scope = serviceProvider.CreateScope())
+    {
+        var mlContext = scope.ServiceProvider.GetRequiredService<MLContext>();
+        var recommendationService = scope.ServiceProvider.GetRequiredService<IRecommendationService>();
+        var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+        var dataPath = config["DataPath"];
+
+        var products = DataHelper.ReadJsonFile<Product>($"{dataPath}products.json");
+        var reviews = DataHelper.ReadJsonFile<RatingAndReview>($"{dataPath}ratings.json");
+        var favorites = DataHelper.ReadJsonFile<Favorite>($"{dataPath}favorites.json");
+        var orderDetails = DataHelper.ReadJsonFile<OrderDetail>($"{dataPath}orders.json");
+        var orderHeaders = DataHelper.ReadJsonFile<OrderHeader>($"{dataPath}OrderHeader.json");
+        var visitHistory = new List<int>() { 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 12, 3, 3, 4 };
+
+        foreach ( var item in orderDetails)
+        {
+            item.OrderHeader = orderHeaders.First(o =>  o.Id == item.OrderHeaderId);
+        }
+
+        
+        var trainingDataView = recommendationService.CreateDataView(reviews, favorites, orderDetails, visitHistory, products, mlContext, "user_id_1");  
+
+        ITransformer model = recommendationService.TrainRecommendationModel(reviews, favorites, orderDetails, visitHistory, products, mlContext, "user_id_1");  
+        mlContext.Model.Save(model, trainingDataView.Schema, products.First().GetType().Name + "_recommendation_model.zip");  
+        Console.WriteLine("Trained model Saved with  parameters types from data  to: " + products.First().GetType().Name + "_recommendation_model.zip");
     }
 }

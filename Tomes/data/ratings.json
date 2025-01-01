@@ -1,0 +1,100 @@
+[
+  {
+        "Id": 1,
+      "ProductId": 1,
+        "ApplicationUserId": "user_id_1",
+      "UserName": "testuser",
+      "Rating": 5,
+    "Review": "This book is a masterpiece!"
+   },
+    {
+       "Id": 2,
+     "ProductId": 2,
+    "ApplicationUserId": "user_id_1",
+        "UserName": "testuser",
+         "Rating": 4,
+     "Review": "A truly moving story."
+      },
+    {
+         "Id": 3,
+        "ProductId": 3,
+       "ApplicationUserId": "user_id_1",
+      "UserName": "testuser",
+       "Rating": 3,
+      "Review": "An interesting book."
+      },
+  {
+      "Id": 4,
+      "ProductId": 4,
+    "ApplicationUserId": "user_id_1",
+    "UserName": "testuser",
+       "Rating": 2,
+      "Review": "Not so good story. ."
+  },
+   {
+       "Id": 5,
+      "ProductId": 5,
+     "ApplicationUserId": "user_id_1",
+        "UserName": "testuser",
+      "Rating": 1,
+      "Review": "Horrible."
+     },
+   {
+       "Id": 6,
+       "ProductId": 6,
+       "ApplicationUserId": "user_id_2",
+        "UserName": "anotherUser",
+        "Rating": 4,
+      "Review": "I enjoy science fictions books and I rate that 4."
+   },
+ {
+        "Id": 7,
+        "ProductId": 8,
+        "ApplicationUserId": "user_id_2",
+         "UserName": "anotherUser",
+          "Rating": 5,
+      "Review": "Excellent fantasy."
+   },
+ {
+        "Id": 8,
+       "ProductId": 7,
+        "ApplicationUserId": "user_id_3",
+         "UserName": "randomuser3",
+        "Rating": 5,
+        "Review": "It’s such amazing"
+   }
+  ,
+  {
+    "Id": 9,
+     "ProductId": 9,
+    "ApplicationUserId": "user_id_3",
+      "UserName":"randomuser3",
+     "Rating": 5,
+         "Review": "One of my favorites and I buy that. . Such Great work from the writer!!"
+    },
+    {
+    "Id": 10,
+        "ProductId": 9,
+       "ApplicationUserId":"user_id_4",
+          "UserName": "user4",
+        "Rating": 3,
+       "Review": "The storyline isn't best for this author, though its ok read"
+  },
+    {
+   "Id": 11,
+       "ProductId": 10,
+     "ApplicationUserId": "user_id_4",
+      "UserName": "user4",
+      "Rating": 2,
+         "Review": "not a big fan of this type of narrative."
+      } ,
+    {
+        "Id": 12,
+       "ProductId": 12,
+      "ApplicationUserId":"user_id_4",
+    "UserName": "user4",
+         "Rating": 4,
+        "Review": "Amazing I buy these books and this worth reading always "
+
+  }
+ ]

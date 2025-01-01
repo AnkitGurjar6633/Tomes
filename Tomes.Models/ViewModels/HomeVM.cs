@@ -10,9 +10,12 @@ namespace Tomes.Models.ViewModels
     public class HomeVM
     {
         public IEnumerable<Product> ProductList { get; set; }
+        public IEnumerable<Product> RecommendedProductList { get; set; }
         public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public FavoriteVM FavoriteVM { get; set; }
 
         public string searchString { get; set; } 
-        public string categoryId { get; set; }
+        public int categoryId { get; set; }
+        public int favoriteProductId { get; set; }
     }
 }

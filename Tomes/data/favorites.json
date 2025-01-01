@@ -1,0 +1,29 @@
+   [
+  {
+     "Id": 1,
+        "ProductId": 2,
+     "ApplicationUserId": "user_id_1"
+  },
+    {
+       "Id": 2,
+       "ProductId": 5,
+     "ApplicationUserId": "user_id_1"
+      },
+   {
+         "Id": 3,
+          "ProductId": 7,
+       "ApplicationUserId": "user_id_2"
+     }
+    ,
+  {
+    "Id": 4,
+     "ProductId": 9,
+        "ApplicationUserId":"user_id_4"
+      },
+      {
+       "Id": 5,
+         "ProductId": 12,
+        "ApplicationUserId":"user_id_4"
+
+   }
+    ]

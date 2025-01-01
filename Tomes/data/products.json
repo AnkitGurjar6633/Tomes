@@ -1,0 +1,163 @@
+[
+    {
+        "Id": 1,
+        "Title": "The Great Gatsby",
+        "Description": "A novel about the American Dream in the Roaring Twenties.",
+        "ISBN": "978-0743273565",
+        "Author": "F. Scott Fitzgerald",
+        "ListPrice": 10.99,
+        "Price": 9.99,
+        "Price50": 8.99,
+        "Price100": 7.99,
+        "CategoryId": 1,
+        "ImageUrl": "/images/greatgatsby.jpg"
+    },
+     {
+        "Id": 2,
+        "Title": "To Kill a Mockingbird",
+        "Description": "A novel set in the South exploring racism and childhood.",
+         "ISBN": "978-0446310789",
+         "Author": "Harper Lee",
+          "ListPrice": 12.99,
+        "Price": 11.99,
+         "Price50": 10.99,
+          "Price100": 9.99,
+        "CategoryId": 1,
+           "ImageUrl": "/images/tokillamockingbird.jpg"
+        },
+      {
+        "Id": 3,
+          "Title": "1984",
+       "Description": "A dystopian novel depicting a totalitarian regime.",
+          "ISBN": "978-0451524935",
+          "Author": "George Orwell",
+        "ListPrice": 11.99,
+         "Price": 10.99,
+           "Price50": 9.99,
+         "Price100": 8.99,
+         "CategoryId": 2,
+         "ImageUrl": "/images/1984.jpg"
+      },
+    {
+         "Id": 4,
+        "Title": "Pride and Prejudice",
+          "Description": "A classic romantic novel about manners and society.",
+        "ISBN": "978-0141439518",
+          "Author": "Jane Austen",
+         "ListPrice": 9.99,
+           "Price": 8.99,
+           "Price50": 7.99,
+        "Price100": 6.99,
+           "CategoryId": 2,
+        "ImageUrl": "/images/prideandprejudice.jpg"
+      },
+     {
+         "Id": 5,
+      "Title": "The Hitchhiker's Guide to the Galaxy",
+        "Description": "A hilarious science fiction comedy adventure.",
+         "ISBN": "978-0345391803",
+        "Author": "Douglas Adams",
+         "ListPrice": 14.99,
+         "Price": 13.99,
+         "Price50": 12.99,
+      "Price100": 11.99,
+        "CategoryId": 3,
+        "ImageUrl": "/images/hitchhikersguide.jpg"
+   },
+     {
+         "Id": 6,
+        "Title": "Dune",
+        "Description": "An epic science fiction novel about intergalactic conflict.",
+       "ISBN": "978-0441172719",
+      "Author": "Frank Herbert",
+        "ListPrice": 15.99,
+          "Price": 14.99,
+          "Price50": 13.99,
+         "Price100": 12.99,
+        "CategoryId": 3,
+         "ImageUrl": "/images/dune.jpg"
+      },
+      {
+           "Id": 7,
+       "Title": "The Lord of the Rings",
+         "Description": "A high fantasy trilogy of the quest to destroy the ring",
+         "ISBN": "978-0618260264",
+          "Author": "J.R.R. Tolkien",
+       "ListPrice": 24.99,
+          "Price": 22.99,
+        "Price50": 20.99,
+         "Price100": 18.99,
+       "CategoryId": 4,
+          "ImageUrl": "/images/lotr.jpg"
+     },
+     {
+        "Id": 8,
+         "Title": "Harry Potter and the Sorcerer's Stone",
+        "Description": "The first novel of the widely known Wizard adventure series.",
+         "ISBN": "978-0590353403",
+       "Author": "J.K. Rowling",
+       "ListPrice": 18.99,
+         "Price": 17.99,
+          "Price50": 16.99,
+          "Price100": 15.99,
+           "CategoryId": 4,
+         "ImageUrl": "/images/hp.jpg"
+    },
+ {
+      "Id": 9,
+          "Title": "Foundation",
+          "Description": "An amazing science fiction of great scope",
+          "ISBN": "0553803765",
+          "Author": "Isaac Asimov",
+      "ListPrice": 18.99,
+          "Price": 17.99,
+           "Price50": 16.99,
+          "Price100": 15.99,
+         "CategoryId": 3,
+           "ImageUrl": "/images/Foundation.jpg"
+ }
+   ,
+ {
+       "Id": 10,
+      "Title": "Animal Farm",
+          "Description": "A brilliant satire on revolution",
+          "ISBN": "978-0141036137",
+       "Author": "George Orwell",
+          "ListPrice": 9.99,
+         "Price": 8.99,
+        "Price50": 7.99,
+       "Price100": 6.99,
+        "CategoryId": 2,
+       "ImageUrl": "/images/Animal_Farm.jpg"
+    }
+   ,
+ {
+     "Id": 11,
+      "Title": "The Name of the Wind",
+          "Description": "An outstanding high fantasy novel for its lyrical pros.",
+          "ISBN": "978-0756404079",
+         "Author": "Patrick Rothfuss",
+        "ListPrice": 21.99,
+         "Price": 19.99,
+          "Price50": 18.99,
+      "Price100": 17.99,
+          "CategoryId": 4,
+      "ImageUrl":"/images/thenameofthewind.jpg"
+
+      },
+{
+          "Id": 12,
+     "Title":"The Count of Monte Cristo",
+     "Description":"A long but outstanding novel of vengeance and human nature.",
+          "ISBN":"978-0140449264",
+       "Author": "Alexandre Dumas",
+        "ListPrice": 13.99,
+         "Price": 11.99,
+           "Price50": 10.99,
+       "Price100": 9.99,
+         "CategoryId": 1,
+     "ImageUrl":"/images/montecrhistro.jpg"
+
+    }
+   
+  ]

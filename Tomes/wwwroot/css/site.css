@@ -547,3 +547,60 @@ bg-success {
         background-color: #578553;
         border-color: #578553;
     }
+
+
+.card:hover .star-icon {
+    display: block !important;
+}
+
+
+/* ratings */
+
+.star-ratings {
+    display: inline-flex;
+}
+
+.star {
+    cursor: pointer;
+    display: inline-block;
+    color: #ccc;
+    font-size: 1.4rem;
+    margin-right: 3px;
+}
+
+.star-active {
+    color: #ffc107;
+    font-size: 1.4rem;
+    margin-right: 3px;
+}
+
+
+.star-ratings-input .star {
+    cursor: pointer;
+    display: inline-block;
+    color: #ccc;
+    font-size: 1.4rem;
+    margin-right: 3px;
+}
+
+    .star-ratings-input .star.active-rating {
+        color: #ffc107;
+    }
+
+.star-ratings-input {
+    display: inline-flex;
+}
+
+.star-percentage {
+    background: linear-gradient(to right, #ffc107 0%, #ccc 0%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.loading-indicator {
+    display: none;
+    margin: auto;
+    color: #ffc107;
+    font-style: oblique;
+}

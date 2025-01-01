@@ -1,19 +1,19 @@
-﻿@model ShoppingCart
+﻿@model DetailsVM
 
-<form method="post">
-    <input hidden asp-for="ProductId" />
-    <div class="container mb-4 pb-5">
-        <div class="card shadow border-0 mt-4 ">
-            <div class="card-header bg-secondary bg-gradient text-light py-4">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <h3 class="text-white text-uppercase">@Model.Product.Title</h3>
-                        <p class="text-white-50 fw-semibold mb-0">by @Model.Product.Author</p>
-                    </div>
+<div class="container mb-4 pb-5">
+    <div class="card shadow border-0 mt-4 ">
+        <div class="card-header bg-secondary bg-gradient text-light py-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="text-white text-uppercase">@Model.ShoppingCart.Product.Title</h3>
+                    <p class="text-white-50 fw-semibold mb-0">by @Model.ShoppingCart.Product.Author</p>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="py-3">
+        </div>
+        <div class="card-body">
+            <div class="py-3">
+                <form method="post">
+                    <input hidden asp-for="ShoppingCart.ProductId" />
                     <div class="row">
                         <div class="col-6 col-md-2 offset-lg-1 pb-1">
                             <a asp-action="Index" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
@@ -23,54 +23,71 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
-                            <img src="@Model.Product.ImageUrl" width="100%" class="rounded" />
+                            <img src="@Model.ShoppingCart.Product.ImageUrl" width="100%" class="rounded" />
                         </div>
                         <div class="col-12 col-lg-6 offset-lg-1">
 
                             <div class="col-12 col-md-6 pb-4">
-                                <span class="badge">@Model.Product.Category.Name</span>
+                                <span class="badge">@Model.ShoppingCart.Product.Category.Name</span>
                             </div>
                             <div class="row ps-2">
-                                <h6 class="text-dark text-opacity-50 ">ISBN : @Model.Product.ISBN</h6>
+                                <h6 class="text-dark text-opacity-50 ">ISBN : @Model.ShoppingCart.Product.ISBN</h6>
                             </div>
                             <div class="row ps-2">
                                 <h6 class="text-dark text-opacity-50  pb-2">
                                     List Price:
                                     <span class="text-decoration-line-through">
-                                        &#x20B9 @Model.Product.ListPrice.ToString()
+                                        ₹ @Model.ShoppingCart.Product.ListPrice.ToString()
                                     </span>
                                 </h6>
                             </div>
-                            <div class="row text-center ps-2">
-                                <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
-                                    <div class="text-dark text-opacity-50 fw-semibold">Quantity</div>
+
+                            @if (User.IsInRole(SD.Role_Company))
+                            {
+                                <div class="row text-center ps-2">
+                                    <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
+                                        <div class="text-dark text-opacity-50 fw-semibold">Quantity</div>
+                                    </div>
+
+                                    <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
+                                        <div class="text-dark text-opacity-50 fw-semibold">1-50</div>
+                                    </div>
+                                    <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
+                                        <div class="text-dark text-opacity-50 fw-semibold">51-100</div>
+                                    </div>
+                                    <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
+                                        <div class="text-dark text-opacity-50 fw-semibold">100+</div>
+                                    </div>
                                 </div>
-                                <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
-                                    <div class="text-dark text-opacity-50 fw-semibold">1-50</div>
+                                <div class="row text-center ps-2">
+                                    <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
+                                        <div>Price</div>
+                                    </div>
+                                    <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
+                                        <div>₹ @Model.ShoppingCart.Product.Price.ToString()</div>
+                                    </div>
+                                    <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
+                                        <div>₹ @Model.ShoppingCart.Product.Price50.ToString()</div>
+                                    </div>
+                                    <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
+                                        <div>₹ @Model.ShoppingCart.Product.Price100.ToString()</div>
+                                    </div>
                                 </div>
-                                <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
-                                    <div class="text-dark text-opacity-50 fw-semibold">51-100</div>
+                            }
+                            else
+                            {
+                                <div class="row ps-2">
+                                    <h6 class="text-warning pb-2 fw-bold">
+                                        Discounted Price:
+                                        <span>
+                                            ₹ @Model.ShoppingCart.Product.Price.ToString()
+                                        </span>
+                                    </h6>
                                 </div>
-                                <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
-                                    <div class="text-dark text-opacity-50 fw-semibold">100+</div>
-                                </div>
-                            </div>
-                            <div class="row text-center ps-2">
-                                <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                                    <div>Price</div>
-                                </div>
-                                <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                                    <div>&#x20B9 @Model.Product.Price.ToString()</div>
-                                </div>
-                                <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                                    <div>&#x20B9 @Model.Product.Price50.ToString()</div>
-                                </div>
-                                <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                                    <div>&#x20B9 @Model.Product.Price100.ToString()</div>
-                                </div>
-                            </div>
+                            }
+
                             <div class="row pl-2 my-3">
-                                <p class="text-secondary lh-sm">@Model.Product.Description</p>
+                                <p class="text-secondary lh-sm">@Model.ShoppingCart.Product.Description </p>
                             </div>
                             <div class="row pl-2 mb-3">
                                 <div class="col-md-4">
@@ -79,25 +96,230 @@
                                               id="inputGroup-sizing-default">
                                             Count
                                         </span>
-                                        <input asp-for="Count" type="number" value="1" class="form-control text-center"
+                                        <input asp-for="ShoppingCart.Count" type="number" value="1" class="form-control text-center"
                                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
 
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12 col-md-6 pb-1">
+                            <div class="row text-center">
+                                <div class="col-12 col-md-6 pb-1 me-0 pe-0">
                                     <button type="submit"
-                                            class="btn btn-primary bg-gradient  w-100 py-2 text-uppercase fw-semibold">
+                                            class="btn btn-primary rounded-end-0 border-end border-light bg-gradient h-100 w-100 py-2 text-uppercase fw-semibold">
                                         Add to Cart
                                     </button>
                                 </div>
+                                <div class="col-2 col-md-2 ps-0 ms-0 pb-1">
+                                    <a asp-action="FavoriteDetails" asp-route-productId="@Model.ShoppingCart.ProductId" asp class="btn btn-primary bg-gradient border-start border-light rounded-start-0  w-100 py-2 text-uppercase ">
+                                        @if (Model.IsFavorite)
+                                        {
+                                            <i class="bi bi-star-fill fs-5"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-star fs-5"></i>
+                                        }
+                                    </a>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </form>
 
+
+
+                <!-- Ratings and Reviews Section -->
+                <div class="row mt-4 px-3">
+                    <div class="col-12 ">
+                        <h5 class="fw-semibold mb-3 text-uppercase text-secondary">Reviews</h5>
+
+
+                        <!-- Average Rating Display -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="star-ratings">
+                                @{
+                                    var roundedRating = Math.Floor(Model.AverageRating);
+                                    var fractionalPart = (Model.AverageRating - roundedRating);
+                                }
+
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    @if (i <= roundedRating)
+                                    {
+                                        <span class="star-active"><i class="bi bi-star-fill"></i></span>
+                                    }
+                                    else if (i == roundedRating + 1 && fractionalPart > 0)
+                                    {
+                                        var percentageFill = (int)(fractionalPart * 100);
+                                        @if (percentageFill >= 90)
+                                        {
+                                            <span class="star-active"><i class="bi bi-star-fill"></i></span>
+                                        }
+                                        else if (percentageFill >= 75)
+                                        {
+                                            <span class="star-active"><i class="bi bi-star-half"></i></span>
+
+                                        }
+                                        else
+                                        {
+                                            <span class="star-active star-percentage" style="background: linear-gradient(to right, #ffc107  @percentageFill% , #ccc @percentageFill%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><i class="bi bi-star-fill"></i></span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="star"><i class="bi bi-star"></i></span>
+                                    }
+                                }
+                            </div>
+                            <span class="ms-2 text-secondary fw-bold"> @Model.AverageRating.ToString("0.0") / 5 ( @Model.TotalReviews  reviews )</span>
+                        </div>
+
+                        @if (Model.UserSubmittedRatingAndReview == null)
+                        {
+                            <!-- Add Review Form -->
+                            <div class="card mt-3 shadow-sm">
+                                <div class="card-body">
+                                    <form method="post" asp-action="Ratings">
+                                        <input type="hidden" asp-for="ReviewedProductId" value="@Model.ShoppingCart.ProductId" />
+                                        <h6 class="text-secondary fw-bold">Add a review</h6>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <!-- review adding with star rating functionality starts-->
+                                            <div class="star-ratings-input">
+                                                <span class="star" data-rating="1"><i class="bi bi-star"></i></span>
+                                                <span class="star" data-rating="2"><i class="bi bi-star"></i></span>
+                                                <span class="star" data-rating="3"><i class="bi bi-star"></i></span>
+                                                <span class="star" data-rating="4"><i class="bi bi-star"></i></span>
+                                                <span class="star" data-rating="5"><i class="bi bi-star"></i></span>
+                                                <input type="hidden" asp-for="RatingSubmitted" id="hidden-rating" value="0" />
+                                            </div>
+                                            <!-- review adding with star rating functionality ends-->
+                                        </div>
+                                        <div class="mb-3">
+                                            <textarea class="form-control" asp-for="ReviewSubmitted" rows="3" placeholder="Write a review..."></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-sm  text-uppercase  fw-semibold">submit review</button>
+
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <!-- User's existing Review -->
+                            <div class="card mt-3 shadow-sm">
+                                <div class="card-body d-flex align-items-start justify-content-between" id="userReviewSection">
+
+                                    <div>
+                                        <div class="d-flex align-items-center mb-2 justify-content-between">
+                                            <h6 class="fw-semibold text-uppercase  text-dark">Your review</h6>
+                                            <div class="star-ratings">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= Model.UserSubmittedRatingAndReview.Rating)
+                                                    {
+                                                        <span class="star-active"><i class="bi bi-star-fill"></i></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="star"><i class="bi bi-star"></i></span>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                        <p class="card-text text-secondary fw-light" id="userReviewText"> @Model.UserSubmittedRatingAndReview.Review </p>
+                                    </div>
+                                    <div class="mb-3 ">
+                                        <button class="btn btn-outline-secondary btn-sm text-uppercase fw-semibold" id="editReviewButton">Edit</button>
+
+                                    </div>
+                                </div>
+
+                                <div class="card-body mt-2  d-none" id="editReviewForm">
+
+                                    <form method="post" asp-action="Ratings">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <!-- review adding with star rating functionality starts-->
+                                            <div class="star-ratings-input">
+                                                <span class="star" data-rating="1"><i class="bi bi-star"></i></span>
+                                                <span class="star" data-rating="2"><i class="bi bi-star"></i></span>
+                                                <span class="star" data-rating="3"><i class="bi bi-star"></i></span>
+                                                <span class="star" data-rating="4"><i class="bi bi-star"></i></span>
+                                                <span class="star" data-rating="5"><i class="bi bi-star"></i></span>
+                                                <input type="hidden" asp-for="RatingSubmitted" id="hidden-rating-edit" value="@Model.UserSubmittedRatingAndReview.Rating" />
+                                            </div>
+                                            <!-- review adding with star rating functionality ends-->
+                                        </div>
+                                        <div class="mb-3">
+                                            <textarea class="form-control" asp-for="ReviewSubmitted" id="editReviewTextarea" rows="3" value="@Model.UserSubmittedRatingAndReview.Review" placeholder="Write a review..."></textarea>
+                                        </div>
+                                        <div class="d-flex gap-2 justify-content-end mt-2">
+
+                                            <button type="button" class="btn btn-secondary btn-sm  text-uppercase  fw-semibold " id="cancelEdit"> Cancel</button>
+                                            <button type="submit" class="btn btn-primary btn-sm  text-uppercase  fw-semibold">submit</button>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Customer Review section Starts -->
+                        <div id="allReviews">
+                            @if (Model.RatingAndReviews != null && Model.RatingAndReviews.Any())
+                            {
+                                @foreach (var review in Model.RatingAndReviews.Take(5))
+                                {
+                                    <div class="card mt-4 shadow-sm border">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center mb-2 justify-content-between">
+                                                <h6 class="fw-semibold text-uppercase  text-dark">@review.UserName</h6>
+                                                <div class="star-ratings">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        if (i <= review.Rating)
+                                                        {
+                                                            <span class="star-active"><i class="bi bi-star-fill"></i></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="star"><i class="bi bi-star"></i></span>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <p class="card-text text-secondary fw-light"> @review.Review </p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        @if (Model.RatingAndReviews != null && Model.RatingAndReviews.Count() > 5)
+                        {
+
+                            <!--More Link For Other reviews-->
+                            <div class="text-center  mt-4  mb-3">
+                                <span id="loadingIndicator" class="loading-indicator">Loading...</span>
+                                <a class=" btn  btn-link" href="#" id="loadMoreReviewButton">Load More Reviews...</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <!--if there is no existing reviews-->
+                            <div class="text-center  mt-4  mb-3">
+                                <div> Be the First to review this book...</div>
+
+                            </div>
+                        }
+                        <!-- Customer Review section Ends -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</form>
+</div>
+
+@section Scripts {
+    <script src="~/js/details.js"></script>
+}

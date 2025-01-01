@@ -20,6 +20,8 @@ namespace Tomes.DataAccess.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<RatingAndReview> RatingAndReviews { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

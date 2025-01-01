@@ -133,16 +133,19 @@ namespace Tomes.Areas.Customer.Controllers
                     score += avgRating * 100; // You can adjust 100 to control the weight of ratings
                 }
 
-                // Visit History Score (Decaying Weight)
-                for (int i = 0; i < visitHistory.Count; i++)
+                if(visitHistory != null)
                 {
-                    if (visitHistory[i] == product.Id)
+                    for (int i = 0; i < visitHistory.Count; i++)
                     {
-                        // Give higher scores to more recent visits, decaying by index
-                        score += 100 / (i + 1.0); // or any other decay factor
-                    }
+                        if (visitHistory[i] == product.Id)
+                        {
+                            // Give higher scores to more recent visits, decaying by index
+                            score += 100 / (i + 1.0); // or any other decay factor
+                        }
 
+                    }
                 }
+                
                 productScores[product.Id] = score;
             }
             return allProducts.OrderByDescending(p => productScores.ContainsKey(p.Id) ? productScores[p.Id] : 0).ToList();
